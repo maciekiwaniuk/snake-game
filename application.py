@@ -7,9 +7,7 @@ import os
 import webbrowser
 import requests
 
-
 from env import VERSION, URL
-
 
 from tendo import singleton
 # will sys.exit(-1) if other instance is running

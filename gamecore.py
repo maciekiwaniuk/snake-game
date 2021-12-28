@@ -105,22 +105,20 @@ class UserData:
         self.effects = data["result"]["user_game_data"]["effects"]
         self.volume = data["result"]["user_game_data"]["volume"]
 
-        self.selected_menu_music = data["result"]["user_game_data"]["selected_menu_music"]
-
     def save_user_data(self):
-        if self.total_coins_earned >= self.coins:
-            path = f"{os.getenv('APPDATA')}/SnakeGame/api_token.ini"
-            with open(path, "r") as api_token_file:
-                api_token = api_token_file.readline()
-            # checking if token wasn't changed while playing or
-            # logged out from all pc using website
-            if api_token != self.api_token:
-                pygame.quit()
-                sys.exit()
-                # pygame.quit()
-                # import application
-                # application.application()
+        path = f"{os.getenv('APPDATA')}/SnakeGame/api_token.ini"
+        with open(path, "r") as api_token_file:
+            api_token = api_token_file.readline()
+        # checking if token wasn't changed while playing or
+        # logged out from all pc using website
+        if api_token != self.api_token:
+            pygame.quit()
+            sys.exit()
+            # pygame.quit()
+            # import application
+            # application.application()
 
+        if self.total_coins_earned >= self.coins:
             request = {}
             request["api_token"] = self.api_token
             request["selected_level"] = self.selected_lvl
@@ -170,8 +168,6 @@ class UserData:
             request["music"] = self.music
             request["effects"] = self.effects
             request["volume"] = self.volume
-
-            request["selected_menu_music"] = self.selected_menu_music
 
             request["version"] = VERSION
             request["secret_game_key"] = SECRET_GAME_KEY
