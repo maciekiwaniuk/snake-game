@@ -1,26 +1,23 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QKeySequence, QCursor
-from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
 import sys
 import json
 import os
 import webbrowser
 import requests
 
-from env import VERSION, URL
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QKeySequence, QCursor
+from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
 
-from tendo import singleton
-# will sys.exit(-1) if other instance is running
-me = singleton.SingleInstance()
+from env import VERSION, SECRET_GAME_KEY, URL
 
 
 # Main class application which inherits QMainWindow class
-class ApplicationWindow(QMainWindow):
+class LoginPanel(QMainWindow):
     # Initializing constructor
     def __init__(self):
         # Initializing constructor of inherited class
         # which is passed in the argument of the class
-        super(ApplicationWindow, self).__init__()
+        super(LoginPanel, self).__init__()
         # super().__init__() is the same
 
         # object name, size of the window, background and window title
@@ -30,16 +27,16 @@ class ApplicationWindow(QMainWindow):
         self.setStyleSheet("background-color: #8BCA67;")
 
         # Method showUI
-        self.showUI()
+        self.show_UI()
 
     # Overriding the closeEvent method to prevent auto closing app
     # when user clicked exit or login
-    def closeEvent(self, event):
+    def close_event(self, event):
         event.accept()
         self.hide()
 
     @staticmethod
-    def checkInternetConnection():
+    def check_internet_connection():
         url = "https://snake-gra.pl/"
         timeout = 5
         try:
@@ -48,8 +45,8 @@ class ApplicationWindow(QMainWindow):
         except:
             return False
 
-    def tryToLogin(self):
-        if(self.checkInternetConnection() == False):
+    def try_to_login(self):
+        if self.check_internet_connection() is False:
             self.error_label.setHidden(False)
             self.error_label.setText("Brak połączenia z internetem")
             return
@@ -69,7 +66,7 @@ class ApplicationWindow(QMainWindow):
             if (data["result"]["success"]):
                 path = f"{os.getenv('APPDATA')}/SnakeGame"
                 # checking if directory doesnt exist
-                if (os.path.exists(path) == False):
+                if os.path.exists(path) is False:
                     folder = "SnakeGame"
                     create_path = os.path.join(os.getenv('APPDATA'), folder)
                     os.mkdir(create_path)
@@ -82,7 +79,7 @@ class ApplicationWindow(QMainWindow):
                 gamecore.program()
 
     # Method which is showing UI
-    def showUI(self):
+    def show_UI(self):
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.title_label = QtWidgets.QLabel(self.centralwidget)
@@ -145,14 +142,14 @@ class ApplicationWindow(QMainWindow):
         self.statusbar.setObjectName("statusbar")
         self.setStatusBar(self.statusbar)
 
-        self.retranslateUI()
+        self.retranslate_UI()
         QtCore.QMetaObject.connectSlotsByName(self)
 
         # app mechanism - clicks etc
         self.mechanism()
 
     # Method which is changing name of buttons
-    def retranslateUI(self):
+    def retranslate_UI(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("LoginPanel", "Panel logowania"))
         self.title_label.setText(_translate("LoginPanel", "Panel logowania do gry"))
@@ -167,69 +164,7 @@ class ApplicationWindow(QMainWindow):
 
     def mechanism(self):
         self.visit_site_button.clicked.connect(lambda: webbrowser.open('https://snake-gra.pl/rejestracja', new=2))
-        self.login_submit.clicked.connect(lambda: self.tryToLogin())
+        self.login_submit.clicked.connect(lambda: self.try_to_login())
 
         self.enter = QShortcut(QKeySequence('Return'), self)
-        self.enter.activated.connect(lambda: self.tryToLogin())
-
-
-# Main function
-def application():
-    # Creating instance of QApplication class
-    # QApplication takes a list of string as input
-    # So QApplication is also able to work with [] argument
-    # app = QApplication([])
-
-    app = QApplication(sys.argv)
-
-    # Creating object of the main application class
-    window = ApplicationWindow()
-
-    # Shows the application window
-    window.show()
-
-    # exec_() call starts the event-loop
-    # and will block until the application quits
-    sys.exit(app.exec_())
-
-
-if __name__ == "__main__":
-    path_ = f"{os.getenv('APPDATA')}/SnakeGame/api_token.ini"
-    # checking if path exists and if token exists and is valid
-    if (os.path.exists(path_)):
-        with open(path_, "r") as api_token_file:
-            api_token = api_token_file.readline()
-            request = {}
-            request["api_token"] = api_token
-            request["version"] = VERSION
-
-            response = requests.post(f'{URL}/api/v1/wczytanie-danych-tokenem', data=request)
-            data = json.loads(response.text)
-
-            token_is_valid = False
-            reason_to_close_game = False
-
-            # if there is a reason to not open a game
-            # example: game is out-of-date
-            try:
-                if data["reason_to_close_game"]:
-                    reason_to_close_game = True
-                    application()
-            except: pass
-
-            # if there is NO reason to NOT open a game
-            # trying to check if api token is valid
-            if reason_to_close_game == False:
-                try:
-                    print(data["result"]["id"])
-                    token_is_valid = True
-                except:
-                    application()
-
-            if token_is_valid:
-                import gamecore
-                gamecore.program()
-    else:
-        # if path doesnt exist --> user is first time logging in
-        application()
-
+        self.enter.activated.connect(lambda: self.try_to_login())
