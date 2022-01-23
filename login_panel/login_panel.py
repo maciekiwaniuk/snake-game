@@ -23,7 +23,7 @@ class LoginPanel(QMainWindow):
         # object name, size of the window, background and window title
         self.setObjectName("LoginPanel")
         self.setWindowIcon(QtGui.QIcon(os.path.join("assets", "others", "icon.png")))
-        self.resize(784, 600)
+        self.setFixedSize(784, 600)
         self.setStyleSheet("background-color: #8BCA67;")
 
         # Method showUI
@@ -75,8 +75,8 @@ class LoginPanel(QMainWindow):
                 with open(os.path.join(path, filename), "w") as api_file:
                     api_file.write(data["result"]["api_token"])
                 self.close()
-                import gamecore
-                gamecore.program()
+                import main_game_application.game_application
+                main_game_application.game_application.run_game_application()
 
     # Method which is showing UI
     def show_UI(self):
@@ -163,7 +163,7 @@ class LoginPanel(QMainWindow):
         self.error_label.setText(_translate("LoginPanel", ""))
 
     def mechanism(self):
-        self.visit_site_button.clicked.connect(lambda: webbrowser.open('https://snake-gra.pl/rejestracja', new=2))
+        self.visit_site_button.clicked.connect(lambda: webbrowser.open(f'{URL}/rejestracja', new=2))
         self.login_submit.clicked.connect(lambda: self.try_to_login())
 
         self.enter = QShortcut(QKeySequence('Return'), self)
