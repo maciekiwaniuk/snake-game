@@ -25,7 +25,7 @@ pygame.init()
 pygame.font.init()
 
 # set game icon
-game_icon = pygame.image.load(os.path.join('assets', 'others', 'icon.png'))
+game_icon = pygame.image.load(os.path.join('assets', 'images', 'icon.png'))
 pygame.display.set_icon(game_icon)
 
 
