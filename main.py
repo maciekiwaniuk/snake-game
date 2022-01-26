@@ -1,12 +1,9 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QKeySequence, QCursor
-from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
+from PyQt5.QtWidgets import QApplication
 from login_panel.login_panel import LoginPanel
 
 import sys
 import json
 import os
-import webbrowser
 import requests
 
 from env import VERSION, URL
@@ -39,12 +36,13 @@ def show_login_panel():
 def main():
     path = f"{os.getenv('APPDATA')}/SnakeGame/api_token.ini"
     # checking if path exists and if token exists and is valid
-    if (os.path.exists(path)):
+    if os.path.exists(path):
         with open(path, "r") as api_token_file:
             api_token = api_token_file.readline()
-            request = {}
-            request["api_token"] = api_token
-            request["version"] = VERSION
+            request = {
+                "api_token": api_token,
+                "version": VERSION
+            }
 
             response = requests.post(f'{URL}/api/v1/wczytanie-danych-tokenem', data=request)
             data = json.loads(response.text)

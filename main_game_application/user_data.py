@@ -1,7 +1,4 @@
 import pygame
-from pygame.math import Vector2
-import random
-import os
 import json
 import sys
 import requests
@@ -9,10 +6,7 @@ import requests
 from constants import *
 from env import VERSION, SECRET_GAME_KEY, URL
 
-# initialize all imported pygame modules
 pygame.init()
-
-# initialize fonts
 pygame.font.init()
 
 
@@ -32,9 +26,10 @@ class UserData:
         with open(path, "r") as api_token_file:
             self.api_token = api_token_file.readline()
 
-        request = {}
-        request["api_token"] = self.api_token
-        request["version"] = VERSION
+        request = {
+            "api_token": self.api_token,
+            "version": VERSION
+        }
         response = requests.post(f'{URL}/api/v1/wczytanie-danych-tokenem', data=request)
         data = json.loads(response.text)
 
@@ -98,9 +93,6 @@ class UserData:
         if api_token != self.api_token:
             pygame.quit()
             sys.exit()
-            # pygame.quit()
-            # import application
-            # application.application()
 
         if self.total_coins_earned >= self.coins:
             request = {}
@@ -169,25 +161,28 @@ class UserData:
             except: pass
 
     def create_open_game_log(self):
-        request = {}
-        request["api_token"] = self.api_token
-        request["secret_game_key"] = SECRET_GAME_KEY
-        request["user_id"] = self.user_id
-        request["ip"] = self.ip
-        response = requests.post(f'{URL}/api/v1/zapisanie-logu-wejsciowego', data=request)
+        request = {
+            "api_token": self.api_token,
+            "secret_game_key": SECRET_GAME_KEY,
+            "user_id": self.user_id,
+            "ip": self.ip
+        }
+        requests.post(f'{URL}/api/v1/zapisanie-logu-wejsciowego', data=request)
 
     def create_exit_game_log(self):
-        request = {}
-        request["api_token"] = self.api_token
-        request["secret_game_key"] = SECRET_GAME_KEY
-        request["user_id"] = self.user_id
-        request["ip"] = self.ip
-        response = requests.post(f'{URL}/api/v1/zapisanie-logu-wyjsciowego', data=request)
+        request = {
+            "api_token": self.api_token,
+            "secret_game_key": SECRET_GAME_KEY,
+            "user_id": self.user_id,
+            "ip": self.ip
+        }
+        requests.post(f'{URL}/api/v1/zapisanie-logu-wyjsciowego', data=request)
 
     def create_logout_game_log(self):
-        request = {}
-        request["api_token"] = self.api_token
-        request["secret_game_key"] = SECRET_GAME_KEY
-        request["user_id"] = self.user_id
-        request["ip"] = self.ip
-        response = requests.post(f'{URL}/api/v1/zapisanie-logu-wylogowania', data=request)
+        request = {
+            "api_token": self.api_token,
+            "secret_game_key": SECRET_GAME_KEY,
+            "user_id": self.user_id,
+            "ip": self.ip
+        }
+        requests.post(f'{URL}/api/v1/zapisanie-logu-wylogowania', data=request)

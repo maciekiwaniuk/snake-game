@@ -448,7 +448,10 @@ class UpgradesMenu:
 
     @staticmethod
     def draw_title_and_background():
-        screen.fill(MENU_COLOR)
+        # screen.fill(MENU_COLOR)
+
+        background_image = pygame.image.load(os.path.join("assets", "images", "background.png")).convert_alpha()
+        screen.blit(background_image, (0, 0))
 
         main_title_text = "Ulepszenia"
         main_title = TITLE_FONT.render(main_title_text, True, BLACK)

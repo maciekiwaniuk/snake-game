@@ -184,8 +184,12 @@ class OptionsMenu:
 
     @staticmethod
     def draw_title_and_background():
+        # screen.fill(MENU_COLOR)
+
+        background_image = pygame.image.load(os.path.join("assets", "images", "background.png")).convert_alpha()
+        screen.blit(background_image, (0, 0))
+
         main_title_text = "Ustawienia"
-        screen.fill(MENU_COLOR)
         main_title = TITLE_FONT.render(main_title_text, True, BLACK)
         main_title_position = main_title.get_rect(center=(WIDTH / 2, 85))
         screen.blit(main_title, main_title_position)

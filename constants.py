@@ -67,11 +67,9 @@ LEFT_CLICK = 1
 RIGHT_CLICK = 3
 
 # region Application parameters
-FPS = 144  # frames per second
 CELL_SIZE = 40  # cell 40px - 40px
-# CELL_NUMBER = 20  # making 'grid' 20 cells each 40px-40px
 CELL_NUMBER = 20
-INTERFACE_HEIGHT = 20 # interface for coins, pause, points - 20px
+INTERFACE_HEIGHT = 20  # interface for coins, pause, points - 20px
 WIDTH = CELL_NUMBER * CELL_SIZE  # 800px --> 20cells x 20 cells
 HEIGHT = (CELL_NUMBER * CELL_SIZE) + 40  # 800px + 40px --> 20cells x 20 cells + 1x20cells for interface
 RESOLUTION = (WIDTH, HEIGHT)  # 800px - 800px
@@ -80,6 +78,7 @@ RESOLUTION = (WIDTH, HEIGHT)  # 800px - 800px
 
 # region Fonts
 MAIN_TITLE_FONT = pygame.font.Font(os.path.join("assets", "fonts", "Lato", "Lato-Black.ttf"), 90)
+MAIN_TITLE_BORDER_FONT = pygame.font.Font(os.path.join("assets", "fonts", "Lato", "Lato-Black.ttf"), 94)
 DIFFICULTIES_FONT = pygame.font.Font(os.path.join("assets", "fonts", "Lato", "Lato-Regular.ttf"), 35)
 MENU_BUTTON_FONT = pygame.font.Font(os.path.join("assets", "fonts", "Lato", "Lato-Regular.ttf"), 50)
 COINS_MENU_FONT = pygame.font.Font(os.path.join("assets", "fonts", "Lato", "Lato-Regular.ttf"), 25)

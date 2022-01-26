@@ -149,15 +149,18 @@ class WelcomeMenu:
 
     @staticmethod
     def draw_title_and_background():
-        screen.fill(MENU_COLOR)
+        # screen.fill(MENU_COLOR)
 
-        # main_title_text = "Snake"
-        # main_title = MAIN_TITLE_FONT.render(main_title_text, True, BLACK)
-        # main_title_position = main_title.get_rect(center=(WIDTH / 2, 85))
-        # screen.blit(main_title, main_title_position)
+        background_image = pygame.image.load(os.path.join("assets", "images", "background.png")).convert_alpha()
+        screen.blit(background_image, (0, 0))
 
-        main_title_image = pygame.image.load(os.path.join("assets", "images", "title.jpg")).convert_alpha()
-        screen.blit(main_title_image, (265, 17))
+        main_title_text = "Snake"
+        main_title = MAIN_TITLE_FONT.render(main_title_text, True, BLACK)
+        main_title_position = main_title.get_rect(center=(WIDTH / 2, 60))
+        screen.blit(main_title, main_title_position)
+
+        # main_title_image = pygame.image.load(os.path.join("assets", "images", "title.jpg")).convert_alpha()
+        # screen.blit(main_title_image, (265, 17))
 
     def draw_easy_button(self, selected, hover):
         if selected == "easy": color = WHITE

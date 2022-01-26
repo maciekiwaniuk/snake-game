@@ -1,13 +1,8 @@
+import sys
 import pygame
 from pygame.math import Vector2
-import random
-import os
-import json
-import sys
-import requests
 
 from constants import *
-from env import VERSION, SECRET_GAME_KEY, URL
 from main_game_application.snake_game.snake_game import SnakeGame
 
 from main_game_application.tabs.welcome import WelcomeMenu
@@ -80,7 +75,7 @@ class MainProgram:
         self.open_statistics = False
 
     def selected_welcome_menu(self):
-        if self.play_game == True:
+        if self.play_game is True:
             self.snake_game.stop_game_music()
             self.welcome.play_menu_music()
 
@@ -137,7 +132,7 @@ def run_game_application():
         curr_mouse_x, curr_mouse_y = pygame.mouse.get_pos()
 
         # WELCOME MENU
-        if main_program.open_welcome_menu == True:
+        if main_program.open_welcome_menu is True:
             main_program.welcome.draw_welcome_menu(curr_mouse_x, curr_mouse_y)
 
             for event in pygame.event.get():
@@ -151,7 +146,7 @@ def run_game_application():
                     if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
                         main_program.selected_play_snake()
                     if event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                        # MEDIUM AND HARD ISNT UNLOCKED
+                        # MEDIUM AND HARD IS NOT UNLOCKED
                         if main_program.user_data.medium_diff == 0 and main_program.user_data.hard_diff == 0:
                             if main_program.user_data.selected_lvl == "speed":
                                 main_program.user_data.selected_lvl = "easy"
@@ -173,7 +168,7 @@ def run_game_application():
                                 main_program.user_data.selected_lvl = "hard"
 
                     if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                        # MEDIUM AND HARD ISNT UNLOCKED
+                        # MEDIUM AND HARD IS NOT UNLOCKED
                         if main_program.user_data.medium_diff == 0 and main_program.user_data.hard_diff == 0:
                             if main_program.user_data.selected_lvl == "easy":
                                 if main_program.user_data.speed_diff == 1:
@@ -198,61 +193,69 @@ def run_game_application():
                                 main_program.user_data.selected_lvl = "medium"
 
                 if click:
+                    # EXIT
                     if main_program.welcome.exit_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         main_program.play_click_sound()
                         main_program.exit_program()
 
+                    # PLAY
                     if main_program.welcome.play_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         main_program.play_click_sound()
                         main_program.selected_play_snake()
 
+                    # SHOP
                     if main_program.welcome.shop_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         main_program.play_click_sound()
                         main_program.selected_shop()
 
+                    # INVENTORY
                     if main_program.welcome.inventory_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         main_program.play_click_sound()
                         main_program.selected_inventory()
 
+                    # OPTIONS
                     if main_program.welcome.options_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         main_program.play_click_sound()
                         main_program.selected_options()
 
+                    # UPGRADES
                     if main_program.welcome.upgrades_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         main_program.play_click_sound()
                         main_program.selected_upgrades()
 
+                    # WELCOME
                     if main_program.welcome.stats_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         main_program.play_click_sound()
                         main_program.selected_statistics()
 
-                    # EASY
+                    # GAME DIFFICULTY EASY
                     if main_program.welcome.easy_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         if main_program.user_data.selected_lvl != "easy":
                             main_program.play_click_sound()
                             main_program.user_data.selected_lvl = "easy"
 
-                    # MEDIUM
+                    # GAME DIFFICULTY MEDIUM
                     if main_program.welcome.medium_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         if main_program.user_data.medium_diff == True:
                             if main_program.user_data.selected_lvl != "medium":
                                 main_program.play_click_sound()
                                 main_program.user_data.selected_lvl = "medium"
 
-                    # HARD
+                    # GAME DIFFICULTY HARD
                     if main_program.welcome.hard_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         if main_program.user_data.hard_diff == True:
                             if main_program.user_data.selected_lvl != "hard":
                                 main_program.play_click_sound()
                                 main_program.user_data.selected_lvl = "hard"
 
-                    # SPEED
+                    # GAME DIFFICULTY SPEED
                     if main_program.welcome.speed_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         if main_program.user_data.speed_diff == True:
                             if main_program.user_data.selected_lvl != "speed":
                                 main_program.play_click_sound()
                                 main_program.user_data.selected_lvl = "speed"
 
+                    # LOGOUT
                     if main_program.welcome.logout_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         main_program.user_data.save_user_data()
                         main_program.user_data.create_logout_game_log()
@@ -261,11 +264,9 @@ def run_game_application():
                             api_token_file.write("")
                         pygame.quit()
                         sys.exit()
-                        # import application
-                        # application.application()
 
         # GAME
-        if main_program.play_game == True:
+        if main_program.play_game is True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     main_program.exit_program()
@@ -281,45 +282,46 @@ def run_game_application():
                         break
 
                     # CLICK ON RESTART / MENU RETURN WHEN LOST
-                    if main_program.snake_game.lost_game == True:
+                    if main_program.snake_game.lost_game is True:
                         if main_program.snake_game.restart_window_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                                main_program.play_click_sound()
-                                main_program.snake_game.lost_game = False
-                                main_program.snake_game = SnakeGame(main_program.user_data)
-                                break
+                            main_program.play_click_sound()
+                            main_program.snake_game.lost_game = False
+                            main_program.snake_game = SnakeGame(main_program.user_data)
+                            break
                         if main_program.snake_game.return_window_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                                main_program.play_click_sound()
-                                main_program.snake_game.lost_game = False
-                                main_program.snake_game = SnakeGame(main_program.user_data)
-                                main_program.selected_welcome_menu()
-                                break
+                            main_program.play_click_sound()
+                            main_program.snake_game.lost_game = False
+                            main_program.snake_game = SnakeGame(main_program.user_data)
+                            main_program.selected_welcome_menu()
+                            break
 
                 # difficulty levels
                 if main_program.user_data.selected_lvl == "easy":
                     if event.type == EASY_DIFF_LVL_UPDATE:
-                        if main_program.snake_game.lost_game == False:
+                        if main_program.snake_game.lost_game is False:
                             main_program.snake_game.update()
                 if main_program.user_data.selected_lvl == "medium":
                     if event.type == MEDIUM_DIFF_LVL_UPDATE:
-                        if main_program.snake_game.lost_game == False:
+                        if main_program.snake_game.lost_game is False:
                             main_program.snake_game.update()
                 if main_program.user_data.selected_lvl == "hard":
                     if event.type == HARD_DIFF_LVL_UPDATE:
-                        if main_program.snake_game.lost_game == False:
+                        if main_program.snake_game.lost_game is False:
                             main_program.snake_game.update()
                 if main_program.user_data.selected_lvl == "speed":
                     if event.type == main_program.snake_game.SPEED_LVL_TIMER_UPDATE:
-                        if main_program.snake_game.lost_game == False:
+                        if main_program.snake_game.lost_game is False:
                             main_program.snake_game.update()
 
                 # update time playing data - increase 1s
                 if event.type == GAME_TIMER_UPDATE:
-                    if main_program.snake_game.lost_game == False:
+                    if main_program.snake_game.lost_game is False:
                         if main_program.snake_game.snake.direction != Vector2(0, 0):
                             main_program.user_data.play_time_seconds += 1
 
                 # SNAKE MOVEMENT
                 if event.type == pygame.KEYDOWN:
+                    # UP
                     if event.key == pygame.K_UP or event.key == pygame.K_w:
                         if main_program.snake_game.snake.direction.y != 1:
                             if main_program.snake_game.snake.body[0].y != (main_program.snake_game.snake.body[1].y) + 1:
@@ -329,6 +331,7 @@ def run_game_application():
                                 main_program.snake_game.snake.direction = Vector2(0, -1)
                                 main_program.user_data.clicks += 1
 
+                    # DOWN
                     if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                         if main_program.snake_game.snake.direction.y != -1:
                             if main_program.snake_game.snake.body[0].y != (main_program.snake_game.snake.body[1].y) - 1:
@@ -337,7 +340,7 @@ def run_game_application():
                                 main_program.snake_game.snake.direction = Vector2(0, 1)
                                 main_program.user_data.clicks += 1
 
-
+                    # LEFT
                     if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                         if main_program.snake_game.snake.direction.x != 1:
                             if main_program.snake_game.snake.body[0].x != (main_program.snake_game.snake.body[1].x) + 1:
@@ -346,6 +349,7 @@ def run_game_application():
                                 main_program.snake_game.snake.direction = Vector2(-1, 0)
                                 main_program.user_data.clicks += 1
 
+                    # RIGHT
                     if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                         if main_program.snake_game.snake.direction.x != -1:
                             if main_program.snake_game.snake.body[0].x != (main_program.snake_game.snake.body[1].x) - 1:
@@ -355,7 +359,7 @@ def run_game_application():
                                 main_program.user_data.clicks += 1
 
                     # SHORTCUTS
-                    if main_program.snake_game.lost_game == True:
+                    if main_program.snake_game.lost_game is True:
                         if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
                             main_program.snake_game.lost_game = False
                             main_program.snake_game = SnakeGame(main_program.user_data)
@@ -369,7 +373,7 @@ def run_game_application():
                 main_program.snake_game.draw_elements(curr_mouse_x, curr_mouse_y)
 
         # SHOP
-        if main_program.open_shop == True:
+        if main_program.open_shop is True:
             main_program.shop.draw_shop(curr_mouse_x, curr_mouse_y)
 
             for event in pygame.event.get():
@@ -389,43 +393,23 @@ def run_game_application():
                         main_program.play_click_sound()
                         main_program.selected_welcome_menu()
 
-                    # CLICK SHOP ITEMS SELECT BUTTON
+                    # CLICK SHOP ITEMS SELECT TAB BUTTONS
                     if main_program.shop.heads_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                        if main_program.shop.selected_heads == False:
+                        if main_program.shop.selected_heads is False:
                             main_program.play_click_sound()
-                        main_program.shop.selected_heads = True
-                        main_program.shop.selected_bodies = False
-                        main_program.shop.selected_fruits = False
-                        main_program.shop.selected_boards = False
-                        main_program.shop.selected_first_page = True
-                        main_program.shop.selected_second_page = False
+                            main_program.shop.select_tab("heads")
                     if main_program.shop.bodies_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                        if main_program.shop.selected_bodies == False:
+                        if main_program.shop.selected_bodies is False:
                             main_program.play_click_sound()
-                        main_program.shop.selected_heads = False
-                        main_program.shop.selected_bodies = True
-                        main_program.shop.selected_fruits = False
-                        main_program.shop.selected_boards = False
-                        main_program.shop.selected_first_page = True
-                        main_program.shop.selected_second_page = False
+                            main_program.shop.select_tab("bodies")
                     if main_program.shop.fruits_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                        if main_program.shop.selected_fruits == False:
+                        if main_program.shop.selected_fruits is False:
                             main_program.play_click_sound()
-                        main_program.shop.selected_heads = False
-                        main_program.shop.selected_bodies = False
-                        main_program.shop.selected_fruits = True
-                        main_program.shop.selected_boards = False
-                        main_program.shop.selected_first_page = True
-                        main_program.shop.selected_second_page = False
+                            main_program.shop.select_tab("fruits")
                     if main_program.shop.boards_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                        if main_program.shop.selected_boards == False:
+                        if main_program.shop.selected_boards is False:
                             main_program.play_click_sound()
-                        main_program.shop.selected_heads = False
-                        main_program.shop.selected_bodies = False
-                        main_program.shop.selected_fruits = False
-                        main_program.shop.selected_boards = True
-                        main_program.shop.selected_first_page = True
-                        main_program.shop.selected_second_page = False
+                            main_program.shop.select_tab("boards")
 
                     # CLICK ON BUY BUTTONS
                     if main_program.shop.selected_first_page:
@@ -506,7 +490,6 @@ def run_game_application():
                             main_program.snake_game = SnakeGame(main_program.user_data)
                             main_program.inventory = InventoryMenu(main_program.user_data)
 
-
                     # CLICK ON PAGE BUTTONS
                     if main_program.shop.first_page_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         if main_program.shop.selected_second_page:
@@ -521,7 +504,7 @@ def run_game_application():
                             main_program.shop.selected_first_page = False
 
         # INVENTORY
-        if main_program.open_inventory == True:
+        if main_program.open_inventory is True:
             main_program.inventory.draw_inventory(curr_mouse_x, curr_mouse_y)
 
             for event in pygame.event.get():
@@ -541,73 +524,23 @@ def run_game_application():
                         main_program.play_click_sound()
                         main_program.selected_welcome_menu()
 
-                    # CLICK SNAKES BUTTON
+                    # CLICK INVENTORY ITEMS SELECT TAB BUTTONS
                     if main_program.inventory.heads_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                        if main_program.inventory.selected_heads == False:
+                        if main_program.inventory.selected_heads is False:
                             main_program.play_click_sound()
-                        main_program.inventory.selected_heads = True
-                        main_program.inventory.selected_bodies = False
-                        main_program.inventory.selected_fruits = False
-                        main_program.inventory.selected_boards = False
-                        main_program.inventory.selected_first_page = True
-                        main_program.inventory.selected_second_page = False
+                        main_program.inventory.select_tab("heads")
                     if main_program.inventory.bodies_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                        if main_program.inventory.selected_bodies == False:
+                        if main_program.inventory.selected_bodies is False:
                             main_program.play_click_sound()
-                        main_program.inventory.selected_heads = False
-                        main_program.inventory.selected_bodies = True
-                        main_program.inventory.selected_fruits = False
-                        main_program.inventory.selected_boards = False
-                        main_program.inventory.selected_first_page = True
-                        main_program.inventory.selected_second_page = False
+                        main_program.inventory.select_tab("bodies")
                     if main_program.inventory.fruits_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                        if main_program.inventory.selected_fruits == False:
+                        if main_program.inventory.selected_fruits is False:
                             main_program.play_click_sound()
-                        main_program.inventory.selected_heads = False
-                        main_program.inventory.selected_bodies = False
-                        main_program.inventory.selected_fruits = True
-                        main_program.inventory.selected_boards = False
-                        main_program.inventory.selected_first_page = True
-                        main_program.inventory.selected_second_page = False
+                        main_program.inventory.select_tab("fruits")
                     if main_program.inventory.boards_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                        if main_program.inventory.selected_boards == False:
+                        if main_program.inventory.selected_boards is False:
                             main_program.play_click_sound()
-                        main_program.inventory.selected_heads = False
-                        main_program.inventory.selected_bodies = False
-                        main_program.inventory.selected_fruits = False
-                        main_program.inventory.selected_boards = True
-                        main_program.inventory.selected_first_page = True
-                        main_program.inventory.selected_second_page = False
-
-                    # CLICK INVENTORY ITEMS SELECT BUTTON
-                    if main_program.inventory.heads_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                        if main_program.inventory.selected_heads == False:
-                            main_program.play_click_sound()
-                        main_program.inventory.selected_heads = True
-                        main_program.inventory.selected_bodies = False
-                        main_program.inventory.selected_fruits = False
-                        main_program.inventory.selected_boards = False
-                    if main_program.inventory.bodies_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                        if main_program.inventory.selected_bodies == False:
-                            main_program.play_click_sound()
-                        main_program.inventory.selected_heads = False
-                        main_program.inventory.selected_bodies = True
-                        main_program.inventory.selected_fruits = False
-                        main_program.inventory.selected_boards = False
-                    if main_program.inventory.fruits_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                        if main_program.inventory.selected_fruits == False:
-                            main_program.play_click_sound()
-                        main_program.inventory.selected_heads = False
-                        main_program.inventory.selected_bodies = False
-                        main_program.inventory.selected_fruits = True
-                        main_program.inventory.selected_boards = False
-                    if main_program.inventory.boards_button_rect.collidepoint(curr_mouse_x, curr_mouse_y):
-                        if main_program.inventory.selected_boards == False:
-                            main_program.play_click_sound()
-                        main_program.inventory.selected_heads = False
-                        main_program.inventory.selected_bodies = False
-                        main_program.inventory.selected_fruits = False
-                        main_program.inventory.selected_boards = True
+                        main_program.inventory.select_tab("boards")
 
                     # CLICKS ON SELECT SKIN BUTTONS
                     if main_program.inventory.selected_first_page:
@@ -661,7 +594,6 @@ def run_game_application():
                             main_program.inventory.select_item(15)
                             main_program.snake_game = SnakeGame(main_program.user_data)
 
-
                     # CLICKS ON PAGE BUTTONS
                     if ((main_program.inventory.selected_heads and len(main_program.inventory.heads_in_inventory) > 8) or
                         (main_program.inventory.selected_bodies and len(main_program.inventory.bodies_in_inventory) > 8) or
@@ -679,7 +611,7 @@ def run_game_application():
                                 main_program.inventory.selected_first_page = True
 
         # OPTIONS
-        if main_program.open_options == True:
+        if main_program.open_options is True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     main_program.exit_program()
@@ -706,7 +638,7 @@ def run_game_application():
                         main_program.options.draw_volume(hover=False, mouse_down=False)
 
                 # WHEN HOLDING MOUSE ON VOLUME SLIDER
-                if slider_dragging == True:
+                if slider_dragging is True:
                     main_program.options.change_slider_position(curr_mouse_x)
                     main_program.options.check_for_changed_volume(curr_mouse_x)
 
@@ -760,7 +692,7 @@ def run_game_application():
                             main_program.user_data.fps = 240
 
         # UPGRADES
-        if main_program.open_upgrades == True:
+        if main_program.open_upgrades is True:
             main_program.upgrades.draw_upgrades(curr_mouse_x, curr_mouse_y)
 
             for event in pygame.event.get():
@@ -805,7 +737,7 @@ def run_game_application():
                         main_program.upgrades.buy_points_upgrade()
 
         # STATISTICS
-        if main_program.open_statistics == True:
+        if main_program.open_statistics is True:
             main_program.statistics.draw_statistics(curr_mouse_x, curr_mouse_y)
 
             for event in pygame.event.get():

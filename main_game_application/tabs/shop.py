@@ -318,7 +318,6 @@ class ShopMenu:
             but_border_position_y = 689
             but_text_position_y = 709
 
-
         price_position = (price_position_x, price_position_y)
         but_border_position = (but_border_position_x, but_border_position_y)
         but_text_position = (but_text_position_x, but_text_position_y)
@@ -633,7 +632,10 @@ class ShopMenu:
 
     @staticmethod
     def draw_title_and_background():
-        screen.fill(MENU_COLOR)
+        # screen.fill(MENU_COLOR)
+
+        background_image = pygame.image.load(os.path.join("assets", "images", "background.png")).convert_alpha()
+        screen.blit(background_image, (0, 0))
 
         main_title_text = "Sklep"
         main_title = TITLE_FONT.render(main_title_text, True, BLACK)
@@ -748,3 +750,19 @@ class ShopMenu:
                     self.data_object.board_skins += f",{self.board_names[index]}"
                     self.data_object.board_skin = self.board_names[index]
         self.data_object.save_user_data()
+
+    def select_tab(self, tab):
+        self.reset_selected_tab()
+
+        if tab == "heads": self.selected_heads = True
+        elif tab == "bodies": self.selected_bodies = True
+        elif tab == "fruits": self.selected_fruits = True
+        elif tab == "boards": self.selected_boards = True
+
+    def reset_selected_tab(self):
+        self.selected_heads = False
+        self.selected_bodies = False
+        self.selected_fruits = False
+        self.selected_boards = False
+        self.selected_first_page = True
+        self.selected_second_page = False

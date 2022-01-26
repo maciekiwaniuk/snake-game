@@ -891,7 +891,6 @@ class InventoryMenu:
 
         if item_type == "boards" or item_type == "fruits":
             image = pygame.image.load(os.path.join("assets", item_type, item_name + ".png"))
-            image = pygame.image.load(os.path.join("assets", item_type, item_name + ".png"))
         else:
             image = pygame.image.load(os.path.join("assets", item_type, item_name, image_name))
 
@@ -967,7 +966,10 @@ class InventoryMenu:
 
     @staticmethod
     def draw_title_and_background():
-        screen.fill(MENU_COLOR)
+        # screen.fill(MENU_COLOR)
+
+        background_image = pygame.image.load(os.path.join("assets", "images", "background.png")).convert_alpha()
+        screen.blit(background_image, (0, 0))
 
         main_title_text = "Ekwipunek"
         main_title = TITLE_FONT.render(main_title_text, True, BLACK)
@@ -1107,3 +1109,18 @@ class InventoryMenu:
         pygame.draw.rect(screen, color_second_page, self.second_page_button_rect)
         screen.blit(first_text, first_text_position)
         screen.blit(second_text, second_text_position)
+
+    def select_tab(self, tab):
+        self.reset_selected_tab()
+        if tab == "heads": self.selected_heads = True
+        elif tab == "bodies": self.selected_bodies = True
+        elif tab == "fruits": self.selected_fruits = True
+        elif tab == "boards": self.selected_boards = True
+
+    def reset_selected_tab(self):
+        self.selected_heads = False
+        self.selected_bodies = False
+        self.selected_fruits = False
+        self.selected_boards = False
+        self.selected_first_page = True
+        self.selected_second_page = False
