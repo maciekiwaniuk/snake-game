@@ -1,9 +1,6 @@
 import pygame
 from pygame.math import Vector2
 import random
-import os
-import json
-import sys
 from constants import *
 
 
@@ -22,7 +19,6 @@ class Fruit:
 
     # draws image in random coordinates got from randomize_method
     def draw_fruit(self):
-        size = (CELL_SIZE, CELL_SIZE)
         position = (int(self.position.x * CELL_SIZE), int(self.position.y * CELL_SIZE))
         apple_image = pygame.image.load(os.path.join("assets", "fruits", self.data_object.fruit_skin + ".png")).convert_alpha()
         apple_image = pygame.transform.scale(apple_image, (40, 40))

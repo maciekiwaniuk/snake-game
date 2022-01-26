@@ -6,15 +6,11 @@ import json
 import sys
 from constants import *
 
-# initialize sounds
 pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.mixer.init()
 
-
-# initialize all imported pygame modules
 pygame.init()
 
-# initialize fonts
 pygame.font.init()
 
 

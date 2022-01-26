@@ -1,21 +1,15 @@
 import pygame
 from pygame.math import Vector2
-import random
-import os
-import json
-import sys
 from constants import *
 
 # initialize sounds
 pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.mixer.init()
 
-
-# initialize all imported pygame modules
 pygame.init()
 
-# initialize fonts
 pygame.font.init()
+
 
 class WelcomeMenu:
     def __init__(self, data_object):
@@ -224,7 +218,6 @@ class WelcomeMenu:
         medium_rect_border = pygame.Rect(273, 121, 142, 50)
         pygame.draw.rect(screen, BLACK, medium_rect_border)
 
-
         pygame.draw.rect(screen, color, self.medium_button_rect)
 
         medium_text = "Medium"
@@ -278,7 +271,6 @@ class WelcomeMenu:
         hard_button_rect_border = pygame.Rect(423, 121, 90, 50)
         pygame.draw.rect(screen, BLACK, hard_button_rect_border)
 
-
         pygame.draw.rect(screen, color, self.hard_button_rect)
 
         hard_text = "Hard"
@@ -323,7 +315,6 @@ class WelcomeMenu:
 
         speed_button_rect_border = pygame.Rect(521, 121, 105, 50)
         pygame.draw.rect(screen, BLACK, speed_button_rect_border)
-
 
         pygame.draw.rect(screen, color, self.speed_button_rect)
 
