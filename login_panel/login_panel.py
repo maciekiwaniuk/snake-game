@@ -1,4 +1,3 @@
-import sys
 import json
 import os
 import webbrowser
@@ -6,7 +5,7 @@ import requests
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QKeySequence, QCursor
-from PyQt5.QtWidgets import QApplication, QMainWindow, QShortcut
+from PyQt5.QtWidgets import QMainWindow, QShortcut
 
 from env import VERSION, SECRET_GAME_KEY, URL
 
@@ -26,8 +25,8 @@ class LoginPanel(QMainWindow):
         self.setFixedSize(784, 600)
         self.setStyleSheet("background-color: #8BCA67;")
 
-        # Method showUI
-        self.show_UI()
+        # Method that shows user interface
+        self.show_ui()
 
     # Overriding the closeEvent method to prevent auto closing app
     # when user clicked exit or login
@@ -37,7 +36,7 @@ class LoginPanel(QMainWindow):
 
     @staticmethod
     def check_internet_connection():
-        url = "https://snake-gra.pl/"
+        url = "https://www.google.pl/"
         timeout = 5
         try:
             request = requests.get(url, timeout=timeout)
@@ -51,19 +50,20 @@ class LoginPanel(QMainWindow):
             self.error_label.setText("Brak połączenia z internetem")
             return
 
-        request = {}
-        request["email"] = self.email.text()
-        request["password"] = self.password.text()
-        request["version"] = VERSION
+        request = {
+            "email": self.email.text(),
+            "password": self.password.text(),
+            "version": VERSION
+        }
 
-        if(len(request["email"]) >= 1 and len(request["password"]) >= 1):
+        if len(request["email"]) >= 1 and len(request["password"]) >= 1:
             response = requests.post(f'{URL}/api/v1/logowanie-do-gry', data=request)
             data = json.loads(response.text)
-            if (data["result"]["success"] == False):
+            if data["result"]["success"] is False:
                 self.error_label.setHidden(False)
                 self.error_label.setText(data["result"]["error_message"])
 
-            if (data["result"]["success"]):
+            if data["result"]["success"]:
                 path = f"{os.getenv('APPDATA')}/SnakeGame"
                 # checking if directory doesnt exist
                 if os.path.exists(path) is False:
@@ -74,12 +74,14 @@ class LoginPanel(QMainWindow):
                 filename = "api_token.ini"
                 with open(os.path.join(path, filename), "w") as api_file:
                     api_file.write(data["result"]["api_token"])
+                # closing login panel
                 self.close()
+                # starting main game application
                 import main_game_application.game_application
                 main_game_application.game_application.run_game_application()
 
     # Method which is showing UI
-    def show_UI(self):
+    def show_ui(self):
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.title_label = QtWidgets.QLabel(self.centralwidget)
@@ -142,14 +144,14 @@ class LoginPanel(QMainWindow):
         self.statusbar.setObjectName("statusbar")
         self.setStatusBar(self.statusbar)
 
-        self.retranslate_UI()
+        self.retranslate_ui()
         QtCore.QMetaObject.connectSlotsByName(self)
 
         # app mechanism - clicks etc
         self.mechanism()
 
     # Method which is changing name of buttons
-    def retranslate_UI(self):
+    def retranslate_ui(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("LoginPanel", "Panel logowania"))
         self.title_label.setText(_translate("LoginPanel", "Panel logowania do gry"))
