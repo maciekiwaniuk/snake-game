@@ -21,7 +21,7 @@ class LoginPanel(QMainWindow):
 
         # object name, size of the window, background and window title
         self.setObjectName("LoginPanel")
-        self.setWindowIcon(QtGui.QIcon(os.path.join("assets", "others", "icon.png")))
+        self.setWindowIcon(QtGui.QIcon(os.path.join("assets", "images", "icon.png")))
         self.setFixedSize(784, 600)
         self.setStyleSheet("background-color: #8BCA67;")
 
