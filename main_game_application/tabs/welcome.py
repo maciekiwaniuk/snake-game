@@ -141,6 +141,9 @@ class WelcomeMenu:
         # COINS BAR
         self.draw_coins_bar()
 
+        # cursor
+        screen.blit(cursor_image, (curr_mouse_x, curr_mouse_y))
+
     @staticmethod
     def draw_title_and_background():
         # screen.fill(MENU_COLOR)
@@ -152,7 +155,6 @@ class WelcomeMenu:
         main_title = MAIN_TITLE_FONT.render(main_title_text, True, BLACK)
         main_title_position = main_title.get_rect(center=(WIDTH / 2, 60))
         screen.blit(main_title, main_title_position)
-
         # main_title_image = pygame.image.load(os.path.join("assets", "images", "title.jpg")).convert_alpha()
         # screen.blit(main_title_image, (265, 17))
 

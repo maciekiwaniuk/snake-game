@@ -133,9 +133,8 @@ class ShopMenu:
         else:
             self.draw_page_buttons(hover_first_page=False, hover_second_page=False)
 
-
-        # print(f"x --> {curr_mouse_x}")
-        # print(f"y --> {curr_mouse_y}\n")
+        # cursor
+        screen.blit(cursor_image, (curr_mouse_x, curr_mouse_y))
 
     def draw_shop_items_buttons(self, curr_mouse_x, curr_mouse_y):
         self.draw_shop_pictures()

@@ -290,6 +290,8 @@ class SnakeGame:
             else:
                 self.draw_lost_window(False, False)
 
+        screen.blit(cursor_image, (curr_mouse_x, curr_mouse_y))
+
     def draw_lost_window(self, return_hover, restart_hover):
         if return_hover == True: color_return = GRASS_COLOR
         if return_hover == False: color_return = GREEN_DARK

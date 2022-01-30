@@ -28,6 +28,9 @@ pygame.font.init()
 game_icon = pygame.image.load(os.path.join('assets', 'images', 'icon.png'))
 pygame.display.set_icon(game_icon)
 
+# set default system cursor to be invisible
+pygame.mouse.set_visible(False)
+
 
 # class for main program which handles all actions
 class MainProgram:
@@ -121,15 +124,19 @@ main_program = MainProgram()
 
 def run_game_application():
     while True:
+        # current mouse positions x = width, y = height
+        curr_mouse_x, curr_mouse_y = pygame.mouse.get_pos()
+
+        # return_button_border = pygame.Rect(30, 30, 104, 80)
+        # return_arrow_position = return_arrow.get_rect(center=(83, 72))
+        # screen.blit(return_arrow, return_arrow_position)
+
         # fps clock
         clock.tick(main_program.user_data.fps)
 
         # setting default value after refreshing
         click = False
         slider_dragging = False
-
-        # current mouse positions x = width, y = height
-        curr_mouse_x, curr_mouse_y = pygame.mouse.get_pos()
 
         # WELCOME MENU
         if main_program.open_welcome_menu is True:
@@ -636,6 +643,9 @@ def run_game_application():
                     else:
                         main_program.options.draw_options_menu(curr_mouse_x, curr_mouse_y)
                         main_program.options.draw_volume(hover=False, mouse_down=False)
+                # cursor
+                screen.blit(cursor_image, (curr_mouse_x, curr_mouse_y))
+
 
                 # WHEN HOLDING MOUSE ON VOLUME SLIDER
                 if slider_dragging is True:

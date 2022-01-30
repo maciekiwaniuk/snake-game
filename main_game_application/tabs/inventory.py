@@ -102,8 +102,8 @@ class InventoryMenu:
         else:
             self.draw_select_buttons(hover_heads=False, hover_bodies=False, hover_fruits=False, hover_boards=False)
 
-        # print(f"x --> {curr_mouse_x}")
-        # print(f"y --> {curr_mouse_y}\n")
+        # cursor
+        screen.blit(cursor_image, (curr_mouse_x, curr_mouse_y))
 
     def play_equip_sound(self):
         if self.data_object.effects == True:

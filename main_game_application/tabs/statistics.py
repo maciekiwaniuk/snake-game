@@ -26,8 +26,8 @@ class StatisticsMenu:
         else:
             self.draw_return_button(hover=False)
 
-        # print(f"x --> {curr_mouse_x}")
-        # print(f"y --> {curr_mouse_y}\n")
+        # cursor
+        screen.blit(cursor_image, (curr_mouse_x, curr_mouse_y))
 
     def draw_return_button(self, hover):
         if hover == True: color = GREEN

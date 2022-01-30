@@ -159,3 +159,8 @@ upgrade_sound = pygame.mixer.Sound(os.path.join("assets", "sounds", "upgrade.mp3
 return_arrow = pygame.image.load(os.path.join("assets", "images", "return_arrow.png")).convert_alpha()
 return_arrow = pygame.transform.scale(return_arrow, (100, 75))
 # endregion
+
+# cursor image
+cursor_image = pygame.image.load(os.path.join("assets", "images", "cursor.png")).convert_alpha()
+cursor_image = pygame.transform.scale(cursor_image, (22, 22))
+
