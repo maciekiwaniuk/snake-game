@@ -1,15 +1,15 @@
-# Snake game ![](https://github.com/maciekiwaniuk/snake-game/blob/main/assets/others/icon.png?raw=true) 
+# Snake game ![](https://github.com/maciekiwaniuk/snake-game/blob/main/assets/images/icon.png?raw=true) 
 
-> ### Project of the game which interacts via API with web application that handles necessary stuff related with storing data.
+> ### Project of the game which interacts via API with the web application that handles necessary stuff related with storing data.
 
 - The whole application is made in [python](https://www.python.org/downloads/).
 - To create login panel is used [PyQt5 Framework](https://pypi.org/project/PyQt5/).
-- Game application is made in [pygame library](https://getbootstrap.com/docs/5.1/getting-started/introduction/).
-- Internet connection is necessary to update user's data via [specific web application](https://github.com/maciekiwaniuk/snake-web-app).
+- Game application is made with [pygame library](https://getbootstrap.com/docs/5.1/getting-started/introduction/).
+- Properly configured [web application](https://github.com/maciekiwaniuk/snake-web-app) is necessary to update data.
 
 # Installation
 
-To successfully install application you need to have installed [python](https://www.python.org/downloads/), [pip](https://pypi.org/project/pip/), [git](https://git-scm.com/) and properly configured web application which is avaliable to clone from [here](https://github.com/maciekiwaniuk/snake-web-app).
+To successfully install application you need to have installed [python](https://www.python.org/downloads/), [pip](https://pypi.org/project/pip/) and properly configured web application which is available to get from [here](https://github.com/maciekiwaniuk/snake-web-app).
 
 Open folder where you want to have project files, open console and then clone the repository
 
