@@ -42,11 +42,11 @@ class OptionsMenu:
         if curr_mouse_x <= 665 and curr_mouse_x >= 265:
             self.volume_slider_rect_position = (curr_mouse_x, 208)
             self.volume_slider_border_position = (curr_mouse_x - 2, 206)
-            self.volume_slider_drag_position = (curr_mouse_x - 50, 180)
+            self.volume_slider_drag_position = (curr_mouse_x - 100, 100)
 
             volume_slider_rect = (10, 50)
             volume_slider_border = (14, 54)
-            volume_drag_slider = (100, 110)
+            volume_drag_slider = (300, 310)
 
             self.volume_slider_rect = pygame.Rect(self.volume_slider_rect_position, volume_slider_rect)
             self.volume_slider_border_rect = pygame.Rect(self.volume_slider_border_position, volume_slider_border)
@@ -416,3 +416,7 @@ class OptionsMenu:
         pygame.draw.rect(screen, color240_border, fps240_border_rect)
         pygame.draw.rect(screen, color240, self.fps240_button_rect)
         screen.blit(fps240_text, fps240_position)
+
+    @staticmethod
+    def draw_cursor(curr_mouse_x, curr_mouse_y):
+        screen.blit(cursor_image, (curr_mouse_x, curr_mouse_y))

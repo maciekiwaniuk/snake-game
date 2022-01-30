@@ -127,10 +127,6 @@ def run_game_application():
         # current mouse positions x = width, y = height
         curr_mouse_x, curr_mouse_y = pygame.mouse.get_pos()
 
-        # return_button_border = pygame.Rect(30, 30, 104, 80)
-        # return_arrow_position = return_arrow.get_rect(center=(83, 72))
-        # screen.blit(return_arrow, return_arrow_position)
-
         # fps clock
         clock.tick(main_program.user_data.fps)
 
@@ -635,17 +631,18 @@ def run_game_application():
                     if main_program.options.volume_slider_drag_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         main_program.options.draw_options_menu(curr_mouse_x, curr_mouse_y)
                         main_program.options.draw_volume(hover=True, mouse_down=True)
+                        main_program.options.draw_cursor(curr_mouse_x, curr_mouse_y)
                         slider_dragging = True
                 else:
                     if main_program.options.volume_slider_rect.collidepoint(curr_mouse_x, curr_mouse_y):
                         main_program.options.draw_options_menu(curr_mouse_x, curr_mouse_y)
                         main_program.options.draw_volume(hover=True, mouse_down=False)
+                        main_program.options.draw_cursor(curr_mouse_x, curr_mouse_y)
+
                     else:
                         main_program.options.draw_options_menu(curr_mouse_x, curr_mouse_y)
                         main_program.options.draw_volume(hover=False, mouse_down=False)
-                # cursor
-                screen.blit(cursor_image, (curr_mouse_x, curr_mouse_y))
-
+                        main_program.options.draw_cursor(curr_mouse_x, curr_mouse_y)
 
                 # WHEN HOLDING MOUSE ON VOLUME SLIDER
                 if slider_dragging is True:

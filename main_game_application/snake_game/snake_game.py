@@ -28,11 +28,11 @@ class SnakeGame:
         self.fruit2 = Fruit(data_object)
         self.fruit3 = Fruit(data_object)
 
-        while (self.fruit.position in self.snake.body):
+        while self.fruit.position in self.snake.body:
             self.fruit = Fruit(data_object)
 
         if self.data_object.selected_fruits_upgrade_lvl > 0:
-            while (self.fruit2.position in self.snake.body or self.fruit2.position == self.fruit.position):
+            while self.fruit2.position in self.snake.body or self.fruit2.position == self.fruit.position:
                 self.fruit2 = Fruit(data_object)
 
         if self.data_object.selected_fruits_upgrade_lvl > 1:
@@ -198,11 +198,11 @@ class SnakeGame:
                 self.data_object.points += points_gain
                 self.data_object.ate_fruits_on_speed += 1
 
-            while (self.fruit.position in self.snake.body):
+            while self.fruit.position in self.snake.body:
                 self.fruit.randomize_position()
 
             if self.data_object.selected_fruits_upgrade_lvl > 0:
-                while (self.fruit2.position in self.snake.body or self.fruit.position == self.fruit2.position):
+                while self.fruit2.position in self.snake.body or self.fruit.position == self.fruit2.position:
                     self.fruit2.randomize_position()
 
             if self.data_object.selected_fruits_upgrade_lvl > 1:
