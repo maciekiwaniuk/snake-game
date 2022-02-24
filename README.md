@@ -43,6 +43,11 @@ To log into game you need to use account from configured web application. Exampl
 
     email: admin1234@wp.pl
 
-    password: admin1234
+    password: 
+	
+# Application appearance
+
+![](https://github.com/maciekiwaniuk/snake-game/raw/main/assets/readme/gifs/gif_1.gif)
+![](https://github.com/maciekiwaniuk/snake-game/raw/main/assets/readme/gifs/gif_2.gif)
 
     
