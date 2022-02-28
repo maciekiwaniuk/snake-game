@@ -43,7 +43,7 @@ To log into game you need to use account from configured web application. Exampl
 
     email: admin1234@wp.pl
 
-    password: 
+    password: admin1234
 	
 # Application appearance
 
