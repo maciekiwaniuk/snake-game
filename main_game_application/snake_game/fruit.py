@@ -27,5 +27,5 @@ class Fruit:
     # setting random coordinates of fruit
     def randomize_position(self):
         self.x = random.randint(0, CELL_NUMBER - 1)
-        self.y = random.randint(1, CELL_NUMBER - 1)
+        self.y = random.randint(1, CELL_NUMBER)
         self.position = Vector2(self.x, self.y)
