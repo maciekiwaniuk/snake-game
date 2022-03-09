@@ -5,11 +5,11 @@
 - The whole application is made in [python](https://www.python.org/downloads/).
 - To create login panel is used [PyQt5 Framework](https://pypi.org/project/PyQt5/).
 - Game application is made with [pygame library](https://getbootstrap.com/docs/5.1/getting-started/introduction/).
-- Properly configured [web application](https://github.com/maciekiwaniuk/snake-web-app) is necessary to update data.
+- Properly configured [web application](https://github.com/maciekiwaniuk/snake-web-app) is required to process the data.
 
 # Installation
 
-To successfully install application you need to have installed [python](https://www.python.org/downloads/), [pip](https://pypi.org/project/pip/) and properly configured web application which is available to get from [here](https://github.com/maciekiwaniuk/snake-web-app).
+To successfully install application you need to have installed [python](https://www.python.org/downloads/), [pip](https://pypi.org/project/pip/) and properly configured web application which is available to get from [this repository](https://github.com/maciekiwaniuk/snake-web-app).
 
 Open folder where you want to have project files, open console and then clone the repository
 
@@ -27,7 +27,7 @@ Copy the env_example.py file and make the required configuration changes in the 
 
     copy env_example.py env.py
     
-Configuration variables should be the same as in the .env in web application.
+Configuration variables should be the same as in the .env in web application
 
     SECRET_GAME_KEY = "example_secret_game_key"
     VERSION = "example_game_version_1.0"
