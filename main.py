@@ -1,36 +1,13 @@
-from PyQt5.QtWidgets import QApplication
-from login_panel.login_panel import LoginPanel
-
-import sys
 import json
 import os
 import requests
 
+from login_panel.login_panel import show_login_panel
 from env import VERSION, URL
 
 from tendo import singleton
-# will sys.exit(-1) if other instance is running
+# prevent the possibility of opening two instances of game
 me = singleton.SingleInstance()
-
-
-# Main function
-def show_login_panel():
-    # Creating instance of QApplication class
-    # QApplication takes a list of string as input
-    # So QApplication is also able to work with [] argument
-    # app = QApplication([])
-
-    app = QApplication(sys.argv)
-
-    # Creating object of the main application class
-    window = LoginPanel()
-
-    # Shows the application window
-    window.show()
-
-    # exec_() call starts the event-loop
-    # and will block until the application quits
-    sys.exit(app.exec_())
 
 
 def main():

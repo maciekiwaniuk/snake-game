@@ -1,3 +1,4 @@
+import sys
 import json
 import os
 import webbrowser
@@ -5,12 +6,30 @@ import requests
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QKeySequence, QCursor
-from PyQt5.QtWidgets import QMainWindow, QShortcut
+from PyQt5.QtWidgets import QMainWindow, QShortcut, QApplication
 
 from env import VERSION, SECRET_GAME_KEY, URL
 
 
-# Main class application which inherits QMainWindow class
+def show_login_panel():
+    # Creating instance of QApplication class
+    # QApplication takes a list of string as input
+    # So QApplication is also able to work with [] argument
+    # app = QApplication([])
+
+    app = QApplication(sys.argv)
+
+    # Creating object of the main application class
+    window = LoginPanel()
+
+    # Shows the application window
+    window.show()
+
+    # exec_() call starts the event-loop
+    # and will block until the application quits
+    sys.exit(app.exec_())
+
+
 class LoginPanel(QMainWindow):
     # Initializing constructor
     def __init__(self):
