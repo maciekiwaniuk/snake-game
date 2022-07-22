@@ -2,7 +2,7 @@
 
 > ### Project of the game which interacts via API with the web application that handles necessary stuff related with storing data.
 
-- The whole application is made in [python](https://www.python.org/downloads/).
+- Application is made in [python](https://www.python.org/downloads/).
 - To create login panel is used [PyQt5 Framework](https://pypi.org/project/PyQt5/).
 - Game application is made with [pygame library](https://getbootstrap.com/docs/5.1/getting-started/introduction/).
 - Properly configured [web application](https://github.com/maciekiwaniuk/snake-web-app) is required to process the data.
