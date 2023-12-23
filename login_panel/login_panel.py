@@ -76,8 +76,8 @@ class LoginPanel(QMainWindow):
         request = {
             "email": self.email.text(),
             "password": self.password.text(),
+            "version": VERSION,
             "secret_hash": hashlib.sha256(secret_hash.encode('utf-8')).hexdigest(),
-            "version": VERSION
         }
 
         if len(request["email"]) >= 1 and len(request["password"]) >= 1:

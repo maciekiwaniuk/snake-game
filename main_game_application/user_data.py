@@ -32,7 +32,6 @@ class UserData:
         request = {
             "api_token": self.api_token,
             "secret_hash": hashlib.sha256(secret_hash.encode('utf-8')).hexdigest(),
-            "version": VERSION
         }
         response = requests.post(f'{URL}/api/v1/wczytanie-danych-tokenem', data=request)
         data = json.loads(response.text)
@@ -149,13 +148,8 @@ class UserData:
             request["effects"] = self.effects
             request["volume"] = self.volume
 
-            request["version"] = VERSION
-            request["secret_game_key"] = SECRET_GAME_KEY
             secret_hash = '{}.{}.{}'.format(SECRET_GAME_KEY, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), VERSION)
-            print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-            print(secret_hash)
             request["secret_hash"] = hashlib.sha256(secret_hash.encode('utf-8')).hexdigest()
-            print(request["secret_hash"])
 
             response = requests.post(f'{URL}/api/v1/zapisanie-danych-tokenem', data=request)
 
@@ -173,7 +167,6 @@ class UserData:
         secret_hash = '{}.{}.{}'.format(SECRET_GAME_KEY, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), VERSION)
         request = {
             "api_token": self.api_token,
-            "secret_game_key": SECRET_GAME_KEY,
             "secret_hash": hashlib.sha256(secret_hash.encode('utf-8')).hexdigest(),
             "user_id": self.user_id,
             "ip": self.ip
@@ -184,7 +177,6 @@ class UserData:
         secret_hash = '{}.{}.{}'.format(SECRET_GAME_KEY, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), VERSION)
         request = {
             "api_token": self.api_token,
-            "secret_game_key": SECRET_GAME_KEY,
             "secret_hash": hashlib.sha256(secret_hash.encode('utf-8')).hexdigest(),
             "user_id": self.user_id,
             "ip": self.ip
@@ -195,7 +187,6 @@ class UserData:
         secret_hash = '{}.{}.{}'.format(SECRET_GAME_KEY, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), VERSION)
         request = {
             "api_token": self.api_token,
-            "secret_game_key": SECRET_GAME_KEY,
             "secret_hash": hashlib.sha256(secret_hash.encode('utf-8')).hexdigest(),
             "user_id": self.user_id,
             "ip": self.ip

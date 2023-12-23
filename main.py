@@ -1,9 +1,11 @@
 import json
 import os
 import requests
+import hashlib
+from datetime import datetime
 
 from login_panel.login_panel import show_login_panel
-from env import VERSION, URL
+from env import VERSION, SECRET_GAME_KEY, URL
 
 from tendo import singleton
 # prevent the possibility of opening two instances of game
@@ -16,9 +18,11 @@ def main():
     if os.path.exists(path):
         with open(path, "r") as api_token_file:
             api_token = api_token_file.readline()
+            secret_hash = '{}.{}.{}'.format(SECRET_GAME_KEY, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), VERSION)
             request = {
                 "api_token": api_token,
-                "version": VERSION
+                "version": VERSION,
+                "secret_hash": hashlib.sha256(secret_hash.encode('utf-8')).hexdigest()
             }
 
             response = requests.post(f'{URL}/api/v1/wczytanie-danych-tokenem', data=request)
