@@ -2,6 +2,8 @@ import pygame
 import json
 import sys
 import requests
+import hashlib
+from datetime import datetime
 
 from constants import *
 from env import VERSION, SECRET_GAME_KEY, URL
@@ -26,8 +28,10 @@ class UserData:
         with open(path, "r") as api_token_file:
             self.api_token = api_token_file.readline()
 
+        secret_hash = '{}.{}.{}'.format(SECRET_GAME_KEY, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), VERSION)
         request = {
             "api_token": self.api_token,
+            "secret_hash": hashlib.sha256(secret_hash.encode('utf-8')).hexdigest(),
             "version": VERSION
         }
         response = requests.post(f'{URL}/api/v1/wczytanie-danych-tokenem', data=request)
@@ -147,6 +151,11 @@ class UserData:
 
             request["version"] = VERSION
             request["secret_game_key"] = SECRET_GAME_KEY
+            secret_hash = '{}.{}.{}'.format(SECRET_GAME_KEY, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), VERSION)
+            print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            print(secret_hash)
+            request["secret_hash"] = hashlib.sha256(secret_hash.encode('utf-8')).hexdigest()
+            print(request["secret_hash"])
 
             response = requests.post(f'{URL}/api/v1/zapisanie-danych-tokenem', data=request)
 
@@ -161,27 +170,33 @@ class UserData:
             except: pass
 
     def create_open_game_log(self):
+        secret_hash = '{}.{}.{}'.format(SECRET_GAME_KEY, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), VERSION)
         request = {
             "api_token": self.api_token,
             "secret_game_key": SECRET_GAME_KEY,
+            "secret_hash": hashlib.sha256(secret_hash.encode('utf-8')).hexdigest(),
             "user_id": self.user_id,
             "ip": self.ip
         }
         requests.post(f'{URL}/api/v1/zapisanie-logu-wejsciowego', data=request)
 
     def create_exit_game_log(self):
+        secret_hash = '{}.{}.{}'.format(SECRET_GAME_KEY, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), VERSION)
         request = {
             "api_token": self.api_token,
             "secret_game_key": SECRET_GAME_KEY,
+            "secret_hash": hashlib.sha256(secret_hash.encode('utf-8')).hexdigest(),
             "user_id": self.user_id,
             "ip": self.ip
         }
         requests.post(f'{URL}/api/v1/zapisanie-logu-wyjsciowego', data=request)
 
     def create_logout_game_log(self):
+        secret_hash = '{}.{}.{}'.format(SECRET_GAME_KEY, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), VERSION)
         request = {
             "api_token": self.api_token,
             "secret_game_key": SECRET_GAME_KEY,
+            "secret_hash": hashlib.sha256(secret_hash.encode('utf-8')).hexdigest(),
             "user_id": self.user_id,
             "ip": self.ip
         }

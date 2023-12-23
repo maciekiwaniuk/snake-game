@@ -3,6 +3,8 @@ import json
 import os
 import webbrowser
 import requests
+import hashlib
+from datetime import datetime
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QKeySequence, QCursor
@@ -69,9 +71,12 @@ class LoginPanel(QMainWindow):
             self.error_label.setText("Brak połączenia z internetem")
             return
 
+        secret_hash = '{}.{}.{}'.format(SECRET_GAME_KEY, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), VERSION)
+
         request = {
             "email": self.email.text(),
             "password": self.password.text(),
+            "secret_hash": hashlib.sha256(secret_hash.encode('utf-8')).hexdigest(),
             "version": VERSION
         }
 
